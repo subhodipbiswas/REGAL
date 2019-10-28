@@ -58,7 +58,7 @@ def stop_shc(it, stagnate):
 def stoc_hill_climb(run, *argv):
     (seed, initial, initialization, args, sch, sy, district) = argv
 
-    '''A plan/ configuraion of N areas grouped into M regions, M < N'''
+    '''1. A plan/ configuraion of N areas grouped into M regions, M < N'''
     regions, regids, best_fval = initial['Regions'], initial['RegionIds'], initial['FuncVal']
 
     args = list(args)
@@ -74,12 +74,12 @@ def stoc_hill_climb(run, *argv):
     start = time.time()
 
     while condition:
-        ''' Step 2. Make a list of M regions '''
+        ''' 2. Make a list of M regions '''
         region_list = [x for x in regions.keys()]
         random.shuffle(region_list)
 
         while len(region_list) > 0:
-            ''' Step 3. Select and remove any region K at random from this list '''
+            ''' 3. Select and remove any region K at random from this list '''
             recipient = region_list[random.randrange(len(region_list))]
             region_list.remove(recipient)  # remove it so that new regions can be picked
 
@@ -87,11 +87,11 @@ def stoc_hill_climb(run, *argv):
             while improve:
 
                 improve = False
-                ''' Step 4. Identify a set of zones bordering on areas of region K that could be moved
+                ''' 4. Identify a set of zones bordering on areas of region K that could be moved
                 into region K without destroying the internal contiguity of the donor region(s). '''
                 areas = get_neighbors(recipient, args)
 
-                ''' Step 5. Randomly select zones from this list until either there is a local improvement
+                ''' 5. Randomly select zones from this list until either there is a local improvement
                 in the current value of the objective function or a move that is equivalently as good as 
                 the current best. '''
                 while not improve and len(areas) > 0:
@@ -111,7 +111,7 @@ def stoc_hill_climb(run, *argv):
 
                     '''Else repeat step 5 until the list is exhausted.'''
 
-            '''Step 6. When the list for region K is exhausted return to step 3, select another region,
+            ''' 6. When the list for region K is exhausted return to step 3, select another region,
             and repeat steps 4-6 .'''
 
         # Updates
@@ -645,13 +645,13 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("-q", "--quiet", action="store_false", dest="verbose",
                         help="don't print status messages to stdout")
-    parser.add_argument("-s", "--school", type=str, default="ES")   # school: Elementary-ES Middle-MS High-HS
-    parser.add_argument("-a", "--algo", type=str, default="SHC")   # algorithm
+    parser.add_argument("-s", "--school", type=str, default="ES")   # schools: ES, MS, HS
+    parser.add_argument("-a", "--algo", type=str, default="SHC")   # algorithms: SHC, SA, TS 
     parser.add_argument("-i", "--initialization", default=1, type=int)
-    parser.add_argument("-d", "--district", type=str, default="B")  # district: A or B
+    parser.add_argument("-d", "--district", type=str, default="B")  # district: A, B
 
     parser.add_argument("-p", "--processes", type=int, default=mp.cpu_count() - 1)  # number of parallel processes
-    parser.add_argument("-r", "--runs", type=int, default=51)  # number of runs
+    parser.add_argument("-r", "--runs", type=int, default=51)  # number of runs to be simulated
     parser.add_argument("-y", "--year", type=int, default=2017)  # school year
     parser.add_argument("-e", "--seed", type=int, default=17)    # integer seed for random number generator
 
