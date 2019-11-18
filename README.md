@@ -53,13 +53,23 @@ You can similarly do it for district B.
 ## Cite
 Please cite our paper if you use this code for your work:
 ```
-@inproceedings{regal_gis19,
-    title = {REGAL: A Regionalization framework for school boundaries},
-    author = {Subhodip Biswas and Fanglan Chen and Zhiqian Chen and Andreea Sistrunk and Nathan Self and Chang-Tien Lu and Naren Ramakrishnan},
-    booktitle = {27th ACM SIGSPATIAL International Conference on Advances in Geographic Information Systems, (GIS)},
-    year = {2019},
-    url = {https://doi.org/10.1145/3347146.3359377}
-}
+@inproceedings{regal-gis,
+ author = {Biswas, Subhodip and Chen, Fanglan and Chen, Zhiqian and Sistrunk, Andreea and Self, Nathan and Lu, Chang-Tien and Ramakrishnan, Naren},
+ title = {REGAL: A Regionalization Framework for School Boundaries},
+ booktitle = {Proceedings of the 27th ACM SIGSPATIAL International Conference on Advances in Geographic Information Systems},
+ series = {SIGSPATIAL '19},
+ year = {2019},
+ isbn = {978-1-4503-6909-1},
+ location = {Chicago, IL, USA},
+ pages = {544--547},
+ numpages = {4},
+ url = {http://doi.acm.org/10.1145/3347146.3359377},
+ doi = {10.1145/3347146.3359377},
+ acmid = {3359377},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {constrained clustering, local search, optimization, spatial clustering},
+} 
 ```
 ## Help
 Should you have queries, feel free to send an email to subhodip [at] cs.vt.edu
