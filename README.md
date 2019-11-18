@@ -5,6 +5,8 @@ This is the repository for the SIGSPATIAL 2019 paper REGAL: A Regionalization fr
 
 ## Installation
 
+The code is written in Python3 and the experiments were run on a machine using Ubuntu 18.04.3 LTS. You can follow the commands below for setting up your project.
+
 ### Setting up virtual environment
 Assuming you have Python3, set up a virtual environment
 ```
