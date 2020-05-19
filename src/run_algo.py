@@ -635,7 +635,7 @@ def main():
     parser.add_argument("-q", "--quiet", action="store_false", dest="verbose",
                         help="don't print status messages to stdout")
     parser.add_argument("-s", "--school", type=str, default="ES")  # schools: ES, MS, HS
-    parser.add_argument("-r", "--runs", type=int, default=2)  # number of runs to be simulated
+    parser.add_argument("-r", "--runs", type=int, default=25)  # number of runs to be simulated
     parser.add_argument("-e", "--seed", type=int, default=17)  # integer seed for random number generator
     parser.add_argument("-i", "--initialization", default=1, type=int)  # 1: seeded, 2: infeasiible 3: existing
     parser.add_argument("-y", "--year", type=int, default=2019)  # school year
