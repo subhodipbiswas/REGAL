@@ -7,6 +7,11 @@ This is the repository for the SIGSPATIAL 2019 paper REGAL: A Regionalization fr
 
 The code is written in Python3 and the experiments were run on a machine using Ubuntu 18.04.3 LTS. You can follow the commands below for setting up your project.
 
+### Navigate to the 'src' folder containing the source scripts
+```
+cd ./src
+```
+
 ### Setting up virtual environment
 Assuming you have Python3, set up a virtual environment
 ```
@@ -21,9 +26,33 @@ source ../venv/bin/activate
 ```
 
 ## Package installation
-Install the required packages contained in the file packages.txt. This is a one-time thing, make sure the virtual environment is activated before performing this step.
+Install the required packages contained in the file requirements.txt. This is a one-time thing, make sure the virtual environment is activated before performing this step.
 ```
-pip install -r packages.txt
+pip install -r requirements.txt
+```
+
+## Run the code
+You can run the simulations with the following three local search techniques.
+SHC- Stochastic Hill Climbing
+SA- Simulated Annealing
+TS- Tabu Search
+
+Code to simulate runs using SHC.
+1. Elementary school
+```
+./run_algo.py -s ES -a SHC
+```
+2. Middle school
+```
+./run_algo.py -s MS -a SHC
+```
+3. High school
+```
+./run_algo.py -s HS -a SHC
+```
+Or you can run all the experiments using the Makefile as
+```
+make district_A
 ```
 
 ### Deactivate the environment
@@ -31,26 +60,6 @@ Deactivate it before exiting the project
 ```
 deactivate
 ```
-
-## Run the code
-Code to simulate runs for district A.
-1. Elementary school
-```
-./run_algo.py -s ES -d A
-```
-2. Middle school
-```
-./run_algo.py -s MS -d A
-```
-3. High school
-```
-./run_algo.py -s HS -d A
-```
-Or you can run all the experiments using the Makefile as
-```
-make district_A
-```
-You can similarly do it for district B.
 
 ## Cite
 Please cite our paper if you use this code for your work:
