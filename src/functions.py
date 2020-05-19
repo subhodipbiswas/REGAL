@@ -29,56 +29,56 @@ def parameters():
     return w1, w2, epsilon, max_iter
 
 
-def obj_func(ids, regions):
+def obj_func(ids, zones):
     """Sum of the F-values"""
 
-    F = sum(regions[r]['F'] for r in ids)
+    F = sum(zones[r]['F'] for r in ids)
     return F
 
 
 def show_stat(args):
-    # args = (popltn, capacity, adjacency, spas, spas_nbr, sch_spas_nbr, sch, regions, regids)
-    regions = args[7]
+    # args = (population, capacity, adjacency, spas, spas_nbr, sch_spas_nbr, sch, zones, zoneids)
+    zones = args[7]
 
-    for regid in regions.keys():
+    for zoneid in zones.keys():
 
         # Get population and capacity statistics
-        cap = regions[regid]['Capacity']
-        pop = regions[regid]['Population']
+        cap = zones[zoneid]['Capacity']
+        pop = zones[zoneid]['Population']
 
         # Get perimeter and area statistics
-        area = regions[regid]['Area']
-        peri = regions[regid]['Perimeter']
+        area = zones[zoneid]['Area']
+        peri = zones[zoneid]['Perimeter']
 
-        print("%s : Area: %10.5f Perimeter: %10.5f Capacity: %5d Population: %5d" %(regid, area, peri, cap, pop))
+        print("%s : Area: %10.5f Perimeter: %10.5f Capacity: %5d Population: %5d" %(zoneid, area, peri, cap, pop))
 
 
-def find_change(regids, area, args):
-    """Compute the change in objective function for adding 'area' to region 'regid'."""
-    # args = (popltn, capacity, adjacency, spas, spas_nbr, sch_spas_nbr, schlattr, regions, regids)
+def find_change(zoneids, area, args):
+    """Compute the change in objective function for adding 'area' to zone 'zoneid'."""
+    # args = (population, capacity, adjacency, spas, spas_nbr, sch_spas_nbr, schlattr, zones, zoneids)
 
-    regions = args[7]
-    donor = regids[0]
-    recipient = regids[1]
+    zones = args[7]
+    donor = zoneids[0]
+    recipient = zoneids[1]
 
-    donor_region = [x for x in regions[donor]['STATE']]
-    recip_region = [x for x in regions[recipient]['STATE']]
+    donor_zone = [x for x in zones[donor]['STATE']]
+    recip_zone = [x for x in zones[recipient]['STATE']]
 
-    len_donor, len_recip = len(donor_region), len(recip_region)
+    len_donor, len_recip = len(donor_zone), len(recip_zone)
     change, possible = None, False
     try:
-        donor_region.remove(area)
-        recip_region.append(area)
-        new_regions = [donor_region, recip_region]
+        donor_zone.remove(area)
+        recip_zone.append(area)
+        new_zones = [donor_zone, recip_zone]
 
         # Compute the change in functional value
-        initial = sum([regions[r]['F'] for r in regids])
+        initial = sum([zones[r]['F'] for r in zoneids])
 
         possible = True
         global w1, w2
         final = 0
 
-        for s in new_regions:
+        for s in new_zones:
             members = [m for m in s]
 
             f1 = target_balance(members, args[0], args[1])[2]
@@ -97,7 +97,7 @@ def find_change(regids, area, args):
 
 
 def target_balance(members, pop, cap):
-    """Balance of population with school capacity of the region"""
+    """Balance of population with school capacity of the zone"""
     p = c = None
     try:
         p = sum([pop[m] for m in members])
@@ -113,7 +113,7 @@ def target_balance(members, pop, cap):
 
 
 def target_compact(members, shapes):
-    """ Get perimeter, area and the target compactness of the region"""
+    """ Get perimeter, area and the target compactness of the zone"""
     shape_list = [shapes['geometry'][m] for m in members]
 
     try:
@@ -129,14 +129,14 @@ def target_compact(members, shapes):
     return area, peri, f2
 
 
-def computation(regid, args, regions=None):
-    # args = (popltn, capacity, adjacency, spas, spas_nbr, sch_spas_nbr, schlattr, regions, regids)
+def computation(zoneid, args, zones=None):
+    # args = (population, capacity, adjacency, spas, spas_nbr, sch_spas_nbr, schlattr, zones, zoneids)
     d = dict()
 
-    if regions is None:
-        regions = args[7]
+    if zones is None:
+        zones = args[7]
 
-    members = [m for m in regions[regid]['STATE']]
+    members = [m for m in zones[zoneid]['STATE']]
 
     '''Get population and capacity statistics'''
     pop, cap, f1 = target_balance(members=members, pop=args[0], cap=args[1])
@@ -160,25 +160,25 @@ def computation(regid, args, regions=None):
 
     d['F'] = F
 
-    return regid, d
+    return zoneid, d
 
 
-def update_property(ids, args, regions=None):
-    """Update the properties of regions (clusters) contained in regid_list"""
+def update_property(ids, args, zones=None):
+    """Update the properties of zones (clusters) contained in zoneid_list"""
 
-    # args = (popltn, capacity, adjacency, spas, spas_nbr, sch_spas_nbr, schlattr, regions, regids)
-    if regions is None:
-        regions = args[7]
+    # args = (population, capacity, adjacency, spas, spas_nbr, sch_spas_nbr, schlattr, zones, zoneids)
+    if zones is None:
+        zones = args[7]
 
     for r in ids:
 
-        t, d = computation(r, args, regions)
-        regions[r]['Capacity'] = d['Capacity']
-        regions[r]['Population'] = d['Population']
+        t, d = computation(r, args, zones)
+        zones[r]['Capacity'] = d['Capacity']
+        zones[r]['Population'] = d['Population']
 
-        regions[r]['Area'] = d['Area']
-        regions[r]['Perimeter'] = d['Perimeter']
+        zones[r]['Area'] = d['Area']
+        zones[r]['Perimeter'] = d['Perimeter']
 
-        regions[r]['F1'] = d['F1']
-        regions[r]['F2'] = d['F2']
-        regions[r]['F'] = d['F']
+        zones[r]['F1'] = d['F1']
+        zones[r]['F2'] = d['F2']
+        zones[r]['F'] = d['F']

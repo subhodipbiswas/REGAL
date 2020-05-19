@@ -1,11 +1,9 @@
-run: district_A district_B
+REGAL: runable simulation
 
-district_A:
-	./run_algo.py -s ES -d A
-	./run_algo.py -s MS -d A
-	./run_algo.py -s HS -d A
+runable:
+	chmod u+x ./run_algo.py
 
-district_B:
-	./run_algo.py -s ES -d B
-	./run_algo.py -s MS -d B
-	./run_algo.py -s HS -d B
+simulation:
+	./run_algo.py -s ES
+	./run_algo.py -s MS
+	./run_algo.py -s HS
