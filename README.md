@@ -26,6 +26,8 @@ Install the required packages contained in the file requirements.txt. This is a 
 pip install -r requirements.txt
 ```
 
+Note that some geospatial packages in Python require dependencies like [GDAL](https://gdal.org/) to be already installed.
+
 ### Navigate to the 'src' folder containing the source scripts
 ```
 cd ./src
