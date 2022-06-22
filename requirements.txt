@@ -2,7 +2,7 @@ Fiona==1.8a1
 geopandas==0.3.0
 geopy==1.14.0
 networkx==2.1
-numpy==1.16.2
+numpy==1.22.0
 pandas==0.23.0
 scipy==1.2.1
 seaborn==0.9.0
